@@ -3,6 +3,15 @@
 #include "input/file.h"
 #include "matrix/sudoku.h"
 
+typedef struct
+{
+    int row;
+    int column;
+} params;
+
+// [0]: rows; [1]: columns; [2]: sub_squares;
+// int valid[3][9];
+
 int main()
 {
 
