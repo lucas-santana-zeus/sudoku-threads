@@ -24,7 +24,7 @@ void *validate_row(void *p)
     int col = params->column;
     if (check_valid_row != 0)
     {
-        printf("linha invalida: %d\n", row + 1);
+        printf("trabalhador linha - linha invalida: %d\n", row + 1);
         pthread_exit(NULL);
     }
     int position_validator[9] = {0};
@@ -46,6 +46,30 @@ void *validate_row(void *p)
 
 void *validate_column(void *p)
 {
+    Params *params = (Params *)p;
+    Matrix m = params->m;
+    int row = params->row;
+    int col = params->column;
+    if (check_valid_column != 0)
+    {
+        printf("trabalhador coluna - coluna invalida: %d\n", row + 1);
+        pthread_exit(NULL);
+    }
+    int position_validator[9] = {0};
+    for (int i = 0; i < 9; i++)
+    {
+        int value = m.m[i][col];
+        int pos = value - 1;
+        if (value < 1 || value > 9 || position_validator[pos] == TRUE)
+        {
+            pthread_exit(NULL);
+            return;
+        }
+        position_validator[pos] == TRUE;
+    }
+    params->checker[1][col] = 1;
+    pthread_exit(NULL);
+    return;
 }
 
 int check_valid_row(Params p)

@@ -10,7 +10,7 @@
 // } params;
 
 // [0]: rows; [1]: columns; [2]: sub_squares;
-// int valid[3][9];
+int valid[3][9];
 
 int main()
 {

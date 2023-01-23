@@ -16,5 +16,6 @@ typedef struct
 
 Params new_params(Matrix m, int row, int col, int **checker);
 void *validate_row(void *p);
+void *validate_column(void *p);
 
 #endif
