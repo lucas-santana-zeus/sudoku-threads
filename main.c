@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "print/teste.h"
-#include "input/sudoku.h"
+#include "input/file.h"
+#include "matrix/sudoku.h"
 
 int matriz[9][9];
 
@@ -22,12 +22,13 @@ int main()
     //            &m[i][0], &m[i][1], &m[i][2], &m[i][3], &m[i][4], &m[i][5], &m[i][6], &m[i][7], &m[i][9]);
     // }
 
-    get_sudoku_matrix(matriz);
+    FILE *sudoku = open_sudoku_file();
+    Matrix s = get_sudoku_matrix(sudoku);
 
     for (int i = 0; i < 9; i++)
     {
         printf("%d %d %d %d %d %d %d %d %d\n",
-               matriz[i][0], matriz[i][1], matriz[i][2], matriz[i][3], matriz[i][4], matriz[i][5], matriz[i][6], matriz[i][7], matriz[i][9]);
+               s.m[i][0], s.m[i][1], s.m[i][2], s.m[i][3], s.m[i][4], s.m[i][5], s.m[i][6], s.m[i][7], s.m[i][9]);
     }
 
     // fclose(sudoku);
