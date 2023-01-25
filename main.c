@@ -32,7 +32,7 @@ int main()
         for (int j = 0; j < 9; j++)
         {
             if (j == 0)
-            { // valida linhas
+            {
                 Params *p = new_params(s, i, j);
                 pthread_create(&workers[t_index], NULL, validate_row, p);
                 t_index++;
@@ -61,11 +61,15 @@ int main()
     {
         for (int j = 0; j < 9; j++)
         {
-            printf("%d ", valid[i][j]);
+            if (valid[i][j] == 0)
+            {
+                printf("resolução do sudoku inválida!\n");
+                return 0;
+            }
         }
-        printf("\n");
     }
 
+    printf("solução do sudoku válida!\n");
     sem_destroy(&sem_matrix);
     sem_destroy(&sem_valid);
 
@@ -92,7 +96,7 @@ void *validate_row(void *p)
         int pos = value - 1;
         if (value < 1 || value > 9 || position_validator[pos] == TRUE)
         {
-            printf("row: v:%d pos: %d\n", value, pos);
+            printf("linha errada: %d\n", row + 1);
             pthread_exit(NULL);
         }
         position_validator[pos] = TRUE;
@@ -124,7 +128,7 @@ void *validate_column(void *p)
         int pos = value - 1;
         if (value < 1 || value > 9 || position_validator[pos] == TRUE)
         {
-            printf("col: v:%d pos: %d\n", value, pos);
+            printf("coluna errada: %d\n", col + 1);
             pthread_exit(NULL);
         }
         position_validator[pos] = TRUE;
@@ -158,7 +162,7 @@ void *validate_sub_square(void *p)
             int pos = value - 1;
             if (value < 0 || value > 9 || position_validator[pos] == TRUE)
             {
-                printf("sq: v:%d pos: %d\n", value, pos);
+                printf("quadrado errado: %d\n", row + col / 3);
                 pthread_exit(NULL);
             }
             position_validator[pos] = TRUE;
